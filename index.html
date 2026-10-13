@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theca – klasikos biblioteka</title><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #f6f1e7;
+    --surface: #fffdf8;
+    --text: #2a241c;
+    --muted: #776b5b;
+    --line: #e3d9c6;
+    --accent: #8a4b2a;
+    --shadow: 0 1px 2px rgba(60,40,20,.06), 0 6px 18px rgba(60,40,20,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140f; --surface: #221d17; --text: #efe7da;
+      --muted: #a89a86; --line: #3a3229; --accent: #d79a6c;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17140f; --surface: #221d17; --text: #efe7da;
+    --muted: #a89a86; --line: #3a3229; --accent: #d79a6c;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.35);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 Inter, system-ui, sans-serif;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; margin: 0; }
+  h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -.01em; }
+  .lead { color: var(--muted); max-width: 60ch; margin: 10px 0 0; }
+  .tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .search {
+    flex: 1 1 260px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); color: var(--text); font: inherit;
+  }
+  .select {
+    flex: 0 1 auto; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--surface); color: var(--text); font: inherit; cursor: pointer;
+  }
+  .select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .search:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .chip {
+    border: 1px solid var(--line); background: transparent; color: var(--muted);
+    padding: 5px 12px; border-radius: 999px; font: 500 13px Inter, sans-serif; cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+  .stats { color: var(--muted); font-size: 14px; margin: 20px 0 0; }
+
+  .author { padding: 36px 0; border-bottom: 1px solid var(--line); }
+  .author-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .author-head h2 { font-size: 1.9rem; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .author p { color: var(--muted); margin: 6px 0 18px; max-width: 70ch; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .card {
+    display: flex; gap: 14px; text-align: left; padding: 14px; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    box-shadow: var(--shadow); color: inherit; font: inherit;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cover {
+    flex: 0 0 78px; height: 112px; border-radius: 3px 8px 8px 3px; padding: 8px 7px;
+    color: #fff8ec; display: flex; flex-direction: column; justify-content: space-between;
+    font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 13px; line-height: 1.1;
+    box-shadow: inset 4px 0 0 rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.2);
+    position: relative; overflow: hidden;
+  }
+  .cover::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,.14), transparent 55%);
+  }
+  .cover small { font-family: Inter, sans-serif; font-weight: 500; font-size: 8.5px; opacity: .8; }
+  .card h3 { font-size: 1.3rem; line-height: 1.15; }
+  .card .orig { color: var(--muted); font-size: 12.5px; font-style: italic; margin: 2px 0 6px; }
+  .card .short { font-size: 14px; margin: 0; }
+
+  .badge {
+    display: inline-block; margin-bottom: 6px; padding: 1px 8px; border-radius: 999px;
+    border: 1px solid var(--accent); color: var(--accent); font: 600 11px Inter, sans-serif;
+  }
+  .badge.done { background: var(--accent); color: var(--surface); }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+
+  .tools .chip { align-self: center; }
+  .top {
+    position: fixed; right: 16px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--surface); color: var(--accent);
+    font-size: 20px; cursor: pointer; box-shadow: var(--shadow);
+  }
+  .top:hover { border-color: var(--accent); }
+
+  .empty { padding: 60px 0; text-align: center; color: var(--muted); }
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 13px; }
+
+  dialog {
+    border: none; border-radius: 16px; padding: 0; max-width: 620px; width: calc(100% - 32px);
+    background: var(--surface); color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  }
+  dialog::backdrop { background: rgba(20,14,8,.55); backdrop-filter: blur(2px); }
+  .dlg { display: flex; gap: 22px; padding: 28px; }
+  .dlg .cover { flex-basis: 110px; height: 160px; font-size: 17px; }
+  .dlg .cover small { font-size: 10px; }
+  .dlg h3 { font-size: 2rem; line-height: 1.1; }
+  .dlg .by { color: var(--accent); font-weight: 600; margin: 4px 0 2px; }
+  .dlg .desc { margin: 14px 0 0; }
+  .close {
+    position: absolute; top: 10px; right: 12px; border: none; background: none;
+    font-size: 26px; line-height: 1; color: var(--muted); cursor: pointer; padding: 6px;
+  }
+  @media (max-width: 520px) {
+    .dlg { flex-direction: column; padding: 24px 20px; }
+    .dlg .cover { flex-basis: auto; width: 100px; height: 145px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Theca</h1>
+    <p class="lead">Lietuvių ir pasaulio klasikai bei jų knygos, kurias galima skaityti lietuviškai. Paspauskite knygą, kad pamatytumėte išsamų aprašymą ir pažymėtumėte, ką perskaitėte ar norite perskaityti.</p>
+    <div class="tools">
+      <input id="q" class="search" type="search" placeholder="Ieškoti knygos ar autoriaus…" aria-label="Paieška">
+      <select id="salis" class="select" aria-label="Šalis"></select>
+      <select id="epocha" class="select" aria-label="Epocha"></select>
+      <select id="zanras" class="select" aria-label="Žanras"></select>
+      <select id="rikiuoti" class="select" aria-label="Rikiavimas">
+        <option value="metai">Chronologiškai</option>
+        <option value="abc">Pagal abėcėlę</option>
+      </select>
+      <button id="valyti" class="chip" hidden>Valyti filtrus</button>
+    </div>
+    <div id="busenos" class="chips" role="group" aria-label="Filtruoti pagal skaitymo būseną"></div>
+    <p id="stats" class="stats"></p>
+  </div>
+</header>
+
+<main class="wrap" id="list"></main>
+
+<footer class="wrap">Visos čia pateiktos knygos parašytos lietuviškai arba išverstos į lietuvių kalbą.</footer>
+
+<button id="virsun" class="top" aria-label="Į viršų" hidden>↑</button>
+
+<dialog id="dlg">
+  <button class="close" aria-label="Uždaryti" onclick="dlg.close()">×</button>
+  <div class="dlg" id="dlgBody"></div>
+</dialog>
+
+<script src="knygos.js"></script>
+<script>
+  const list = document.getElementById("list");
+  const q = document.getElementById("q");
+  const stats = document.getElementById("stats");
+  const dlg = document.getElementById("dlg");
+  const dlgBody = document.getElementById("dlgBody");
+  const busenos = document.getElementById("busenos");
+  let busena = "visos";
+
+  // Skaitymo žymės saugomos naršyklėje: { "Autorius|Knyga": "noriu" | "skaityta" }
+  const BUSENOS = { noriu: "Noriu perskaityti", skaityta: "Perskaityta" };
+  let zymes = {};
+  try { zymes = JSON.parse(localStorage.getItem("theca-zymes")) || {}; } catch {}
+  const issaugoti = () => { try { localStorage.setItem("theca-zymes", JSON.stringify(zymes)); } catch {} };
+  const raktas = (r, k) => r.vardas + "|" + k.pavadinimas;
+  const zyme = z => z ? `<span class="badge${z === "skaityta" ? " done" : ""}">${BUSENOS[z]}</span>` : "";
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const pavarde = vardas => vardas.split(" ").pop();
+  // Lietuviškas linksniavimas prie skaičiaus: 1 knyga, 2 knygos, 10 knygų
+  const kiek = (n, vns, dgs, kilm) =>
+    n % 10 === 0 || (n % 100 > 10 && n % 100 < 20) ? kilm : n % 10 === 1 ? vns : dgs;
+
+  // Autoriai rikiuojami pagal gimimo metus (pr. Kr. – neigiami; be skaičių – Homeras, ~VIII a.)
+  const gime = r => {
+    const m = r.gyvenimas.match(/\d+/);
+    const n = m ? +m[0] : 800;
+    return /pr\. Kr\./.test(r.gyvenimas) ? -n : n;
+  };
+  RASYTOJAI.sort((a, b) => gime(a) - gime(b));
+
+  const cover = (k, autorius) =>
+    `<div class="cover" style="background:${esc(k.spalva)}">${esc(k.pavadinimas)}<small>${esc(pavarde(autorius))}</small></div>`;
+
+  // Šalies, epochos (pagal pirmą knygos metų skaičių; be skaičių – antika) ir žanro filtrai
+  const salisSel = document.getElementById("salis");
+  const epochaSel = document.getElementById("epocha");
+  const zanrasSel = document.getElementById("zanras");
+  const EPOCHOS = ["Antika", "XIV–XVII a.", "XVIII a.", "XIX a.", "XX a."];
+  const epocha = k => {
+    const m = k.metai.match(/\d+/);
+    const y = !m || /pr\. Kr\./.test(k.metai) ? -1 : +m[0];
+    return EPOCHOS[y < 500 ? 0 : y < 1700 ? 1 : y < 1800 ? 2 : y < 1900 ? 3 : 4];
+  };
+  const zanrai = [...new Set(RASYTOJAI.flatMap(r => r.knygos.map(k => k.zanras)))].sort((a, b) => a.localeCompare(b, "lt"));
+  const parinktys = (visos, sar) => [`<option value="">${visos}</option>`, ...sar.map(s => `<option>${esc(s)}</option>`)].join("");
+  const salys = [...new Set(RASYTOJAI.map(r => r.salis))].sort((a, b) => a.localeCompare(b, "lt"));
+  salisSel.innerHTML = parinktys("Visos šalys", salys);
+  salisSel.addEventListener("change", () => render());
+  epochaSel.innerHTML = parinktys("Visos epochos", EPOCHOS);
+  zanrasSel.innerHTML = parinktys("Visi žanrai", zanrai);
+  epochaSel.addEventListener("change", () => render());
+  zanrasSel.addEventListener("change", () => render());
+
+  const rikiuoti = document.getElementById("rikiuoti");
+  const valyti = document.getElementById("valyti");
+  const virsun = document.getElementById("virsun");
+  rikiuoti.addEventListener("change", () => render());
+  valyti.addEventListener("click", () => {
+    q.value = salisSel.value = epochaSel.value = zanrasSel.value = "";
+    busena = "visos";
+    busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.b === busena));
+    render();
+  });
+  virsun.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+  addEventListener("scroll", () => { virsun.hidden = scrollY < 600; }, { passive: true });
+
+  // Skaitymo būsenos filtrai
+  busenos.innerHTML = [["visos", "Visos knygos"], ["noriu", "Noriu perskaityti"], ["skaityta", "Perskaitytos"]]
+    .map(([b, t]) => `<button class="chip" aria-pressed="${b === busena}" data-b="${b}">${t}</button>`).join("");
+  busenos.addEventListener("click", e => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    busena = b.dataset.b;
+    busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    render();
+  });
+
+  function render() {
+    const term = norm(q.value.trim());
+    let knyguSk = 0, autoriuSk = 0;
+    valyti.hidden = !(q.value || salisSel.value || epochaSel.value || zanrasSel.value || busena !== "visos");
+    // RASYTOJAI jau surikiuoti chronologiškai; abėcėlei rikiuojami tik indeksai (pagal pavardę)
+    const tvarka = RASYTOJAI.map((_, ri) => ri);
+    if (rikiuoti.value === "abc")
+      tvarka.sort((a, b) => pavarde(RASYTOJAI[a].vardas).localeCompare(pavarde(RASYTOJAI[b].vardas), "lt"));
+    const html = tvarka.map(ri => {
+      const r = RASYTOJAI[ri];
+      if (salisSel.value && r.salis !== salisSel.value) return "";
+      const autoriusTinka = norm(r.vardas).includes(term);
+      const knygos = r.knygos
+        .map((k, ki) => ({ k, ki }))
+        .filter(({ k }) => !term || autoriusTinka || norm(k.pavadinimas + " " + k.originalas).includes(term))
+        .filter(({ k }) => busena === "visos" || zymes[raktas(r, k)] === busena)
+        .filter(({ k }) => !epochaSel.value || epocha(k) === epochaSel.value)
+        .filter(({ k }) => !zanrasSel.value || k.zanras === zanrasSel.value);
+      if (!knygos.length) return "";
+      autoriuSk++; knyguSk += knygos.length;
+      return `<section class="author">
+        <div class="author-head"><h2>${esc(r.vardas)}</h2><span class="meta">${esc(r.gyvenimas)} · ${esc(r.salis)}</span></div>
+        <p>${esc(r.apie)}</p>
+        <div class="grid">${knygos.map(({ k, ki }) => `
+          <button class="card" data-r="${ri}" data-k="${ki}">
+            ${cover(k, r.vardas)}
+            <div>${zyme(zymes[raktas(r, k)])}<h3>${esc(k.pavadinimas)}</h3><div class="orig">${k.originalas === k.pavadinimas ? "" : esc(k.originalas) + ", "}${esc(k.metai)} · ${esc(k.zanras)}</div><p class="short">${esc(k.trumpai)}</p></div>
+          </button>`).join("")}</div>
+      </section>`;
+    }).join("");
+    list.innerHTML = html || `<div class="empty">${busena === "visos" || term || salisSel.value || epochaSel.value || zanrasSel.value
+      ? "Nieko nerasta. Pabandykite kitą paieškos žodį ar filtrą."
+      : "Čia dar nieko nėra. Atidarykite knygos aprašymą ir pažymėkite ją."}</div>`;
+    const perskaityta = Object.values(zymes).filter(z => z === "skaityta").length;
+    stats.textContent = `${autoriuSk} ${kiek(autoriuSk, "autorius", "autoriai", "autorių")} · ${knyguSk} ${kiek(knyguSk, "knyga", "knygos", "knygų")}`
+      + (perskaityta ? ` · perskaityta ${perskaityta}` : "");
+  }
+
+  let atidaryta = null; // [autoriaus indeksas, knygos indeksas]
+  function rodyti() {
+    const r = RASYTOJAI[atidaryta[0]], k = r.knygos[atidaryta[1]], z = zymes[raktas(r, k)];
+    dlgBody.innerHTML = `${cover(k, r.vardas)}
+      <div>
+        <h3>${esc(k.pavadinimas)}</h3>
+        <div class="by">${esc(r.vardas)}</div>
+        <div class="meta">${k.originalas === k.pavadinimas ? "" : `Originalas: <i>${esc(k.originalas)}</i> · `}${esc(k.metai)} · ${esc(k.zanras)}</div>
+        <p class="desc">${esc(k.aprasymas)}</p>
+        <div class="actions">${Object.entries(BUSENOS).map(([b, t]) =>
+          `<button class="chip" aria-pressed="${z === b}" data-b="${b}">${t}</button>`).join("")}</div>
+      </div>`;
+  }
+
+  list.addEventListener("click", e => {
+    const c = e.target.closest(".card");
+    if (!c) return;
+    atidaryta = [c.dataset.r, c.dataset.k];
+    rodyti();
+    dlg.showModal();
+  });
+  // Pakartotinis paspaudimas žymę nuima
+  dlgBody.addEventListener("click", e => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    const r = RASYTOJAI[atidaryta[0]], key = raktas(r, r.knygos[atidaryta[1]]);
+    if (zymes[key] === b.dataset.b) delete zymes[key]; else zymes[key] = b.dataset.b;
+    issaugoti();
+    rodyti();
+    render();
+  });
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  q.addEventListener("input", render);
+  render();
+</script>
+</body>
+</html>
