@@ -140,6 +140,7 @@
         <option value="metai">Chronologiškai</option>
         <option value="abc">Pagal abėcėlę</option>
       </select>
+      <button id="atsitiktine" class="chip">Atsitiktinė knyga</button>
       <button id="valyti" class="chip" hidden>Valyti filtrus</button>
     </div>
     <div id="busenos" class="chips" role="group" aria-label="Filtruoti pagal skaitymo būseną"></div>
@@ -218,11 +219,17 @@
   const valyti = document.getElementById("valyti");
   const virsun = document.getElementById("virsun");
   rikiuoti.addEventListener("change", () => render());
+  const pazymetiBusena = () => busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.b === busena));
   valyti.addEventListener("click", () => {
     q.value = salisSel.value = epochaSel.value = zanrasSel.value = "";
     busena = "visos";
-    busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.b === busena));
+    pazymetiBusena();
     render();
+  });
+  // Atsitiktinė knyga – iš tų, kurios dabar matomos pagal filtrus
+  document.getElementById("atsitiktine").addEventListener("click", () => {
+    const korteles = list.querySelectorAll(".card");
+    if (korteles.length) korteles[Math.floor(Math.random() * korteles.length)].click();
   });
   virsun.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
   addEventListener("scroll", () => { virsun.hidden = scrollY < 600; }, { passive: true });
@@ -234,7 +241,7 @@
     const b = e.target.closest(".chip");
     if (!b) return;
     busena = b.dataset.b;
-    busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    pazymetiBusena();
     render();
   });
 
@@ -274,9 +281,45 @@
     const perskaityta = Object.values(zymes).filter(z => z === "skaityta").length;
     stats.textContent = `${autoriuSk} ${kiek(autoriuSk, "autorius", "autoriai", "autorių")} · ${knyguSk} ${kiek(knyguSk, "knyga", "knygos", "knygų")}`
       + (perskaityta ? ` · perskaityta ${perskaityta}` : "");
+    irasytiAdresa();
+  }
+
+  // Filtrai ir atidaryta knyga laikomi adreso gale (#salis=Lietuva&knyga=…), kad nuorodą būtų galima išsaugoti ar nusiųsti
+  function irasytiAdresa() {
+    const p = new URLSearchParams();
+    if (q.value) p.set("q", q.value);
+    if (salisSel.value) p.set("salis", salisSel.value);
+    if (epochaSel.value) p.set("epocha", epochaSel.value);
+    if (zanrasSel.value) p.set("zanras", zanrasSel.value);
+    if (rikiuoti.value !== "metai") p.set("rikiuoti", rikiuoti.value);
+    if (busena !== "visos") p.set("busena", busena);
+    if (dlg.open && atidaryta) {
+      const r = RASYTOJAI[atidaryta[0]];
+      p.set("knyga", raktas(r, r.knygos[atidaryta[1]]));
+    }
+    const hash = p.toString();
+    history.replaceState(null, "", hash ? "#" + hash : location.pathname + location.search);
+  }
+  function skaitytiAdresa() {
+    const p = new URLSearchParams(location.hash.slice(1));
+    // Neegzistuojanti reikšmė select'e virsta "" – t. y. filtras tiesiog neįjungiamas
+    q.value = p.get("q") || "";
+    salisSel.value = p.get("salis") || "";
+    epochaSel.value = p.get("epocha") || "";
+    zanrasSel.value = p.get("zanras") || "";
+    rikiuoti.value = p.get("rikiuoti") === "abc" ? "abc" : "metai";
+    busena = BUSENOS[p.get("busena")] ? p.get("busena") : "visos";
+    pazymetiBusena();
+    return p.get("knyga");
   }
 
   let atidaryta = null; // [autoriaus indeksas, knygos indeksas]
+  function atidaryti(ri, ki) {
+    atidaryta = [ri, ki];
+    rodyti();
+    if (!dlg.open) dlg.showModal();
+    irasytiAdresa();
+  }
   function rodyti() {
     const r = RASYTOJAI[atidaryta[0]], k = r.knygos[atidaryta[1]], z = zymes[raktas(r, k)];
     dlgBody.innerHTML = `${cover(k, r.vardas)}
@@ -293,9 +336,7 @@
   list.addEventListener("click", e => {
     const c = e.target.closest(".card");
     if (!c) return;
-    atidaryta = [c.dataset.r, c.dataset.k];
-    rodyti();
-    dlg.showModal();
+    atidaryti(+c.dataset.r, +c.dataset.k);
   });
   // Pakartotinis paspaudimas žymę nuima
   dlgBody.addEventListener("click", e => {
@@ -308,8 +349,19 @@
     render();
   });
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", irasytiAdresa);
   q.addEventListener("input", render);
-  render();
+
+  // Įkeliant puslapį ir kai adresas pakeičiamas ranka (ar naršyklės „atgal“)
+  function taikytiAdresa() {
+    const knyga = skaitytiAdresa();
+    render();
+    const ri = knyga ? RASYTOJAI.findIndex(r => r.knygos.some(k => raktas(r, k) === knyga)) : -1;
+    if (ri >= 0) atidaryti(ri, RASYTOJAI[ri].knygos.findIndex(k => raktas(RASYTOJAI[ri], k) === knyga));
+    else if (dlg.open) dlg.close();
+  }
+  addEventListener("hashchange", taikytiAdresa);
+  taikytiAdresa();
 </script>
 </body>
 </html>
