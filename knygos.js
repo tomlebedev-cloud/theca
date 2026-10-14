@@ -1247,7 +1247,7 @@ const RASYTOJAI = [
         zanras: "Drama",
         spalva: "#3a3a5a",
         trumpai: "Prūsų sukilimo vadas tarp savo tautos ir jį išauklėjusių kryžiuočių.",
-        aprasymas: "Vaikystėje kryžiuočių išvežtas ir Magdeburge išauklėtas Herkus Mantas grįžta ir stoja vadovauti didžiajam prūsų sukilimui. Jis kovoja ne tik su Ordinu, bet ir su savųjų žiaurumu bei senųjų žynių valdžia. Tragedija apie laisvę, kuri pareikalauja visko."
+        aprasymas: "Jaunystėje kryžiuočių paimtas įkaitu ir Magdeburge išmokslintas Herkus Mantas grįžta ir stoja vadovauti didžiajam prūsų sukilimui. Jis kovoja ne tik su Ordinu, bet ir su savųjų žiaurumu bei senųjų žynių valdžia. Tragedija apie laisvę, kuri pareikalauja visko."
       }
     ]
   },
