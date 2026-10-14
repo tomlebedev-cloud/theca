@@ -918,7 +918,7 @@ const RASYTOJAI = [
         zanras: "Romanas",
         spalva: "#6a3a3a",
         trumpai: "Garbingos lietuvininkų giminės nuosmukis per kelis šimtmečius.",
-        aprasymas: "Romanas seka Šimonių giminę nuo XVIII a. pradžios iki XX a. pradžios: iš turtingų, išdidžių ūkininkų palikuonys virsta bežemiais. Kartu nyksta ir lietuviška Klaipėdos krašto dvasia, spaudžiama vokietinimo. Šeimos saga, už kurią autorė gavo pirmąją Lietuvos valstybinę literatūros premiją."
+        aprasymas: "Romanas seka Šimonių giminę beveik du šimtmečius, nuo XVIII a.: iš turtingų, išdidžių ūkininkų palikuonys virsta bežemiais. Kartu nyksta ir lietuviška Mažosios Lietuvos dvasia, spaudžiama vokiečių kolonizacijos. Šeimos saga, už kurią autorė gavo pirmąją Lietuvos valstybinę literatūros premiją."
       }
     ]
   },
