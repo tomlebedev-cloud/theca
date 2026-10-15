@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Karas ir taika – Levas Tolstojus | Theca</title>
+<meta name="description" content="Rusijos visuomenė Napoleono karų metu.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/tolstojus-karas-ir-taika/">
+<meta property="og:title" content="Karas ir taika – Levas Tolstojus">
+<meta property="og:description" content="Rusijos visuomenė Napoleono karų metu.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/tolstojus-karas-ir-taika/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#5a3a2e">Karas ir taika<small>Tolstojus</small></div>
+    <div>
+      <h1>Karas ir taika</h1>
+      <div class="by"><a href="../../#q=Levas+Tolstojus">Levas Tolstojus</a></div>
+      <div class="meta">Originalas: <i>Война и мир</i> · 1869 · Romanas</div>
+      <p class="desc">Romane susipina kelių bajorų šeimų – Rostovų, Bolkonskių, Bezuchovų – likimai 1805–1812 m. Pjeras ieško gyvenimo prasmės, Andrejus – garbės, o Nataša bręsta per meilę ir netektis. Tolstojus kartu apmąsto istorijos dėsnius ir žmogaus vietą joje.</p>
+      
+      <div class="actions" id="zymes" data-key="Levas Tolstojus|Karas ir taika"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Levas Tolstojus</h2>
+    <div class="meta">1828–1910 · Rusija</div>
+    <p>Rusų rašytojas ir mąstytojas, didžiųjų epinių romanų autorius.</p>
+  </section>
+
+  <section class="section"><h2>Kitos autoriaus knygos</h2><div class="grid"><a class="card" href="../tolstojus-ana-karenina/" data-key="Levas Tolstojus|Ana Karenina"><div class="cover" style="background:#7a2e3b">Ana Karenina<small>Tolstojus</small></div><div><span class="zyme"></span><h3>Ana Karenina</h3><div class="orig">Анна Каренина, 1878 · Romanas</div><p class="short">Ištekėjusios moters meilė karininkui Vronskiui ir visuomenės smerktis.</p></div></a></div></section>
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../flaubert-as-ponia-bovari/"><small>← Ankstesnė</small><strong>Ponia Bovari</strong><small>Gustave&#x27;as Flaubert&#x27;as</small></a><a class="next" href="../tolstojus-ana-karenina/"><small>Kita →</small><strong>Ana Karenina</strong><small>Levas Tolstojus</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>

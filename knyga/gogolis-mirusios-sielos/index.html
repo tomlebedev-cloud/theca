@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Mirusios sielos – Nikolajus Gogolis | Theca</title>
+<meta name="description" content="Aferistas Čičikovas superka mirusius baudžiauninkus.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/gogolis-mirusios-sielos/">
+<meta property="og:title" content="Mirusios sielos – Nikolajus Gogolis">
+<meta property="og:description" content="Aferistas Čičikovas superka mirusius baudžiauninkus.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/gogolis-mirusios-sielos/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#4a5a3a">Mirusios sielos<small>Gogolis</small></div>
+    <div>
+      <h1>Mirusios sielos</h1>
+      <div class="by"><a href="../../#q=Nikolajus+Gogolis">Nikolajus Gogolis</a></div>
+      <div class="meta">Originalas: <i>Мёртвые души</i> · 1842 · Romanas</div>
+      <p class="desc">Pavelas Čičikovas važinėja po provincijos dvarus ir superka „mirusias sielas“ – mirusius, bet dokumentuose dar įrašytus baudžiauninkus, kad galėtų juos įkeisti. Kiekvienas dvarininkas – atskiras komiškas tipas. Poema prozoje – juokinga ir liūdna Rusijos provincijos panorama.</p>
+      
+      <div class="actions" id="zymes" data-key="Nikolajus Gogolis|Mirusios sielos"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Nikolajus Gogolis</h2>
+    <div class="meta">1809–1852 · Rusija</div>
+    <p>Ukrainoje gimęs rusų rašytojas, satyros ir groteskos meistras.</p>
+  </section>
+
+  
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../dumas-grafas-monte-kristas/"><small>← Ankstesnė</small><strong>Grafas Monte Kristas</strong><small>Alexandre&#x27;as Dumas</small></a><a class="next" href="../dickensas-oliverio-tvisto-nuotykiai/"><small>Kita →</small><strong>Oliverio Tvisto nuotykiai</strong><small>Charlesas Dickensas</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>

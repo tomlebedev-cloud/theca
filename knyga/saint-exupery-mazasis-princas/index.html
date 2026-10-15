@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Mažasis princas – Antoine&#x27;as de Saint-Exupéry | Theca</title>
+<meta name="description" content="Poetiška pasaka apie berniuką iš mažos planetos ir lakūną dykumoje.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/saint-exupery-mazasis-princas/">
+<meta property="og:title" content="Mažasis princas – Antoine&#x27;as de Saint-Exupéry">
+<meta property="og:description" content="Poetiška pasaka apie berniuką iš mažos planetos ir lakūną dykumoje.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/saint-exupery-mazasis-princas/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#2d6a8a">Mažasis princas<small>Saint-Exupéry</small></div>
+    <div>
+      <h1>Mažasis princas</h1>
+      <div class="by"><a href="../../#q=Antoine&#x27;as+de+Saint-Exupéry">Antoine&#x27;as de Saint-Exupéry</a></div>
+      <div class="meta">Originalas: <i>Le Petit Prince</i> · 1943 · Trumpoji proza</div>
+      <p class="desc">Sacharoje nusileidęs lakūnas sutinka Mažąjį princą, atkeliavusį iš asteroido B-612. Princas pasakoja apie savo rožę ir keliones po planetas, kuriose gyvena keisti suaugusieji. Paprasta, bet gili istorija apie draugystę ir tai, kas iš tiesų svarbu.</p>
+      
+      <div class="actions" id="zymes" data-key="Antoine&#x27;as de Saint-Exupéry|Mažasis princas"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Antoine&#x27;as de Saint-Exupéry</h2>
+    <div class="meta">1900–1944 · Prancūzija</div>
+    <p>Prancūzų lakūnas ir rašytojas, rašęs apie skrydžius, draugystę ir atsakomybę.</p>
+  </section>
+
+  
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../hemingway-us-senis-ir-jura/"><small>← Ankstesnė</small><strong>Senis ir jūra</strong><small>Ernestas Hemingway&#x27;us</small></a><a class="next" href="../grusas-herkus-mantas/"><small>Kita →</small><strong>Herkus Mantas</strong><small>Juozas Grušas</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>

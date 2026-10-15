@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Heklberio Fino nuotykiai – Markas Tvenas | Theca</title>
+<meta name="description" content="Hekas ir pabėgęs vergas Džimas plaukia sielu Misisipe.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/tvenas-heklberio-fino-nuotykiai/">
+<meta property="og:title" content="Heklberio Fino nuotykiai – Markas Tvenas">
+<meta property="og:description" content="Hekas ir pabėgęs vergas Džimas plaukia sielu Misisipe.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/tvenas-heklberio-fino-nuotykiai/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#3a5a6b">Heklberio Fino nuotykiai<small>Tvenas</small></div>
+    <div>
+      <h1>Heklberio Fino nuotykiai</h1>
+      <div class="by"><a href="../../#q=Markas+Tvenas">Markas Tvenas</a></div>
+      <div class="meta">Originalas: <i>Adventures of Huckleberry Finn</i> · 1884 · Romanas</div>
+      <p class="desc">Pabėgęs nuo smurtaujančio tėvo, Hekas kartu su vergu Džimu leidžiasi sielu Misisipe. Kelionėje jie sutinka sukčių, kerštaujančių šeimų ir veidmainių, o Hekas turi rinktis tarp visuomenės taisyklių ir savo sąžinės. Romanas laikomas vienu svarbiausių amerikiečių kūrinių.</p>
+      
+      <div class="actions" id="zymes" data-key="Markas Tvenas|Heklberio Fino nuotykiai"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Markas Tvenas</h2>
+    <div class="meta">1835–1910 · JAV</div>
+    <p>Amerikiečių rašytojas ir humoristas, vadinamas amerikiečių literatūros tėvu.</p>
+  </section>
+
+  <section class="section"><h2>Kitos autoriaus knygos</h2><div class="grid"><a class="card" href="../tvenas-tomo-sojerio-nuotykiai/" data-key="Markas Tvenas|Tomo Sojerio nuotykiai"><div class="cover" style="background:#8a5a2a">Tomo Sojerio nuotykiai<small>Tvenas</small></div><div><span class="zyme"></span><h3>Tomo Sojerio nuotykiai</h3><div class="orig">The Adventures of Tom Sawyer, 1876 · Romanas</div><p class="short">Išdykėlio berniuko vasara Misisipės pakrantės miestelyje.</p></div></a></div></section>
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../tvenas-tomo-sojerio-nuotykiai/"><small>← Ankstesnė</small><strong>Tomo Sojerio nuotykiai</strong><small>Markas Tvenas</small></a><a class="next" href="../baranauskas-anyksciu-silelis/"><small>Kita →</small><strong>Anykščių šilelis</strong><small>Antanas Baranauskas</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>

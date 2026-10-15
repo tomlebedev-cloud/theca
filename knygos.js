@@ -1,6 +1,7 @@
 // Lietuvių ir pasaulio klasikai bei jų knygos lietuvių kalba.
 // Lietuviškai parašytoms knygoms originalas = pavadinimas (tada jis atskirai nerodomas).
 // Norėdami pridėti autorių ar knygą – nukopijuokite esamą įrašą ir pakeiskite laukus.
+// Pakeitus šį failą paleisti `python tools/build.py` – jis atnaujina knygų puslapius (knyga/) ir sitemap.xml.
 // spalva – viršelio spalva (bet kokia CSS spalva).
 // zanras – "Romanas", "Poezija", "Drama" arba "Trumpoji proza" (pagal jį veikia žanro filtras).
 // metai – epochos filtras ima pirmą šiame lauke esantį skaičių.

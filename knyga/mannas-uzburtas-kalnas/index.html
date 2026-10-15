@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Užburtas kalnas – Thomas Mannas | Theca</title>
+<meta name="description" content="Jaunas inžinierius septynerius metus praleidžia kalnų sanatorijoje.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/mannas-uzburtas-kalnas/">
+<meta property="og:title" content="Užburtas kalnas – Thomas Mannas">
+<meta property="og:description" content="Jaunas inžinierius septynerius metus praleidžia kalnų sanatorijoje.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/mannas-uzburtas-kalnas/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#4a6a7a">Užburtas kalnas<small>Mannas</small></div>
+    <div>
+      <h1>Užburtas kalnas</h1>
+      <div class="by"><a href="../../#q=Thomas+Mannas">Thomas Mannas</a></div>
+      <div class="meta">Originalas: <i>Der Zauberberg</i> · 1924 · Romanas</div>
+      <p class="desc">Hansas Kastorpas atvyksta trims savaitėms aplankyti pusbrolio Šveicarijos sanatorijoje Davose, bet pasilieka septynerius metus. Ten jis susiduria su skirtingomis idėjomis, meile ir mirtimi, o laikas tarsi sustoja. Filosofinis romanas apie Europą prieš Pirmąjį pasaulinį karą.</p>
+      
+      <div class="actions" id="zymes" data-key="Thomas Mannas|Užburtas kalnas"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Thomas Mannas</h2>
+    <div class="meta">1875–1955 · Vokietija</div>
+    <p>Vokiečių romanistas, 1929 m. Nobelio literatūros premijos laureatas.</p>
+  </section>
+
+  <section class="section"><h2>Kitos autoriaus knygos</h2><div class="grid"><a class="card" href="../mannas-budenbrokai/" data-key="Thomas Mannas|Budenbrokai"><div class="cover" style="background:#3a4a5a">Budenbrokai<small>Mannas</small></div><div><span class="zyme"></span><h3>Budenbrokai</h3><div class="orig">Buddenbrooks, 1901 · Romanas</div><p class="short">Turtingos Liubeko pirklių šeimos nuosmukis per keturias kartas.</p></div></a></div></section>
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../mannas-budenbrokai/"><small>← Ankstesnė</small><strong>Budenbrokai</strong><small>Thomas Mannas</small></a><a class="next" href="../londonas-martinas-idenas/"><small>Kita →</small><strong>Martinas Idenas</strong><small>Jackas Londonas</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>

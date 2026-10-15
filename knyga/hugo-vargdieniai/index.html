@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="lt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
+<title>Vargdieniai – Viktoras Hugo | Theca</title>
+<meta name="description" content="Buvusio katoržininko Žano Valžano kelias į atgailą ir gerumą.">
+<link rel="canonical" href="https://tomlebedev-cloud.github.io/theca/knyga/hugo-vargdieniai/">
+<meta property="og:title" content="Vargdieniai – Viktoras Hugo">
+<meta property="og:description" content="Buvusio katoržininko Žano Valžano kelias į atgailą ir gerumą.">
+<meta property="og:type" content="book">
+<meta property="og:locale" content="lt_LT">
+<meta property="og:url" content="https://tomlebedev-cloud.github.io/theca/knyga/hugo-vargdieniai/">
+<meta property="og:site_name" content="Theca">
+<meta property="og:image" content="https://tomlebedev-cloud.github.io/theca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8a4b2a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../stilius.css?v=2026-10-15">
+</head>
+<body>
+<header class="page-head">
+  <div class="wrap">
+    <a class="back" href="../../">← Visos knygos</a>
+    <a class="brand" href="../../">Theca</a>
+    <button id="tema" class="tema"></button>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="book">
+    <div class="cover" style="background:#3d4a5c">Vargdieniai<small>Hugo</small></div>
+    <div>
+      <h1>Vargdieniai</h1>
+      <div class="by"><a href="../../#q=Viktoras+Hugo">Viktoras Hugo</a></div>
+      <div class="meta">Originalas: <i>Les Misérables</i> · 1862 · Romanas</div>
+      <p class="desc">Už duonos kepalo vagystę ilgus metus kalėjęs Žanas Valžanas, sutikęs gailestingą vyskupą, nusprendžia pradėti naują gyvenimą. Jį persekioja inspektorius Žaveras, o likimas susieja su našlaite Kozeta. Platus romanas apie teisingumą, gailestingumą ir XIX a. Paryžiaus skurdą.</p>
+      
+      <div class="actions" id="zymes" data-key="Viktoras Hugo|Vargdieniai"></div>
+    </div>
+  </article>
+
+  <section class="section">
+    <h2>Viktoras Hugo</h2>
+    <div class="meta">1802–1885 · Prancūzija</div>
+    <p>Prancūzų romantizmo lyderis – poetas, dramaturgas ir romanistas.</p>
+  </section>
+
+  <section class="section"><h2>Kitos autoriaus knygos</h2><div class="grid"><a class="card" href="../hugo-paryziaus-katedra/" data-key="Viktoras Hugo|Paryžiaus katedra"><div class="cover" style="background:#6a5536">Paryžiaus katedra<small>Hugo</small></div><div><span class="zyme"></span><h3>Paryžiaus katedra</h3><div class="orig">Notre-Dame de Paris, 1831 · Romanas</div><p class="short">Kuprotas varpininkas Kvazimodas ir gražuolė čigonė Esmeralda.</p></div></a></div></section>
+
+  <nav class="prevnext" aria-label="Kitos knygos"><a class="prev" href="../valancius-palangos-juze/"><small>← Ankstesnė</small><strong>Palangos Juzė</strong><small>Motiejus Valančius</small></a><a class="next" href="../hugo-paryziaus-katedra/"><small>Kita →</small><strong>Paryžiaus katedra</strong><small>Viktoras Hugo</small></a></nav>
+</main>
+
+<footer class="wrap">Theca – lietuvių ir pasaulio klasika lietuvių kalba.</footer>
+
+<script src="../../bendra.js?v=2026-10-15"></script>
+<script>
+  // Skaitymo žymės: mygtukai šiai knygai ir ženkliukai kitų knygų kortelėse
+  const box = document.getElementById("zymes");
+  const rodytiZymes = () => {
+    box.innerHTML = Object.entries(BUSENOS).map(([b, t]) =>
+      `<button class="chip" aria-pressed="${zymes[box.dataset.key] === b}" data-b="${b}">${t}</button>`).join("");
+    document.querySelectorAll(".card[data-key]").forEach(c => c.querySelector(".zyme").innerHTML = zyme(zymes[c.dataset.key]));
+  };
+  box.addEventListener("click", ev => {
+    const b = ev.target.closest(".chip");
+    if (!b) return;
+    perjungtiZyme(box.dataset.key, b.dataset.b);
+    rodytiZymes();
+  });
+  rodytiZymes();
+</script>
+</body>
+</html>
