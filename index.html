@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>try { const t = localStorage.getItem("theca-tema"); if (t) document.documentElement.dataset.theme = t; } catch {}</script>
 <title>Theca – klasikos biblioteka</title>
 <meta name="description" content="Lietuvių ir pasaulio klasikai bei jų knygos lietuvių kalba: trumpi aprašymai, paieška, filtrai pagal šalį, epochą ir žanrą, skaitymo žymės.">
 <meta property="og:title" content="Theca – klasikos biblioteka">
@@ -46,6 +47,13 @@
   }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
   header { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
+  header .wrap { position: relative; }
+  .tema {
+    position: absolute; top: -40px; right: 16px; width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text);
+    font-size: 18px; line-height: 1; cursor: pointer;
+  }
+  .tema:hover { border-color: var(--accent); }
   h1, h2, h3 { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; margin: 0; }
   h1 { font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; letter-spacing: -.01em; }
   .lead { color: var(--muted); max-width: 60ch; margin: 10px 0 0; }
@@ -104,6 +112,13 @@
     border: 1px solid var(--accent); color: var(--accent); font: 600 11px Inter, sans-serif;
   }
   .badge.done { background: var(--accent); color: var(--surface); }
+  .read {
+    display: inline-block; margin-top: 16px; padding: 8px 14px; border-radius: 10px;
+    background: var(--accent); color: var(--surface); font-weight: 600; text-decoration: none;
+  }
+  .read span { font-weight: 400; opacity: .85; }
+  .read:hover { filter: brightness(1.08); }
+  .online { margin-top: 6px; color: var(--accent); font: 600 12px Inter, sans-serif; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 
   .tools .chip { align-self: center; }
@@ -141,6 +156,7 @@
 <body>
 <header>
   <div class="wrap">
+    <button id="tema" class="tema"></button>
     <h1>Theca</h1>
     <p class="lead">Lietuvių ir pasaulio klasikai bei jų knygos, kurias galima skaityti lietuviškai. Paspauskite knygą, kad pamatytumėte išsamų aprašymą ir pažymėtumėte, ką perskaitėte ar norite perskaityti.</p>
     <div class="tools">
@@ -171,7 +187,7 @@
   <div class="dlg" id="dlgBody"></div>
 </dialog>
 
-<script src="knygos.js?v=2026-10-14"></script>
+<script src="knygos.js?v=2026-10-15"></script>
 <script>
   const list = document.getElementById("list");
   const q = document.getElementById("q");
@@ -230,6 +246,23 @@
   const rikiuoti = document.getElementById("rikiuoti");
   const valyti = document.getElementById("valyti");
   const virsun = document.getElementById("virsun");
+
+  // Šviesi / tamsi tema: kol nepaspausta, laikomasi sistemos nustatymo
+  const temaBtn = document.getElementById("tema");
+  const tamsi = () => (document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark";
+  const rodytiTema = () => {
+    temaBtn.textContent = tamsi() ? "☀" : "☾";
+    temaBtn.setAttribute("aria-label", tamsi() ? "Įjungti šviesią temą" : "Įjungti tamsią temą");
+    temaBtn.title = temaBtn.getAttribute("aria-label");
+  };
+  temaBtn.addEventListener("click", () => {
+    const t = tamsi() ? "light" : "dark";
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem("theca-tema", t); } catch {}
+    rodytiTema();
+  });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", rodytiTema);
+  rodytiTema();
   rikiuoti.addEventListener("change", () => render());
   const pazymetiBusena = () => busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.b === busena));
   valyti.addEventListener("click", () => {
@@ -247,7 +280,7 @@
   addEventListener("scroll", () => { virsun.hidden = scrollY < 600; }, { passive: true });
 
   // Skaitymo būsenos filtrai
-  busenos.innerHTML = [["visos", "Visos knygos"], ["noriu", "Noriu perskaityti"], ["skaityta", "Perskaitytos"]]
+  busenos.innerHTML = [["visos", "Visos knygos"], ["noriu", "Noriu perskaityti"], ["skaityta", "Perskaitytos"], ["internete", "Skaitomos internete"]]
     .map(([b, t]) => `<button class="chip" aria-pressed="${b === busena}" data-b="${b}">${t}</button>`).join("");
   busenos.addEventListener("click", e => {
     const b = e.target.closest(".chip");
@@ -272,7 +305,7 @@
       const knygos = r.knygos
         .map((k, ki) => ({ k, ki }))
         .filter(({ k }) => !term || autoriusTinka || norm(k.pavadinimas + " " + k.originalas).includes(term))
-        .filter(({ k }) => busena === "visos" || zymes[raktas(r, k)] === busena)
+        .filter(({ k }) => busena === "visos" || (busena === "internete" ? !!k.skaityti : zymes[raktas(r, k)] === busena))
         .filter(({ k }) => !epochaSel.value || epocha(k) === epochaSel.value)
         .filter(({ k }) => !zanrasSel.value || k.zanras === zanrasSel.value);
       if (!knygos.length) return "";
@@ -283,11 +316,11 @@
         <div class="grid">${knygos.map(({ k, ki }) => `
           <button class="card" data-r="${ri}" data-k="${ki}">
             ${cover(k, r.vardas)}
-            <div>${zyme(zymes[raktas(r, k)])}<h3>${esc(k.pavadinimas)}</h3><div class="orig">${k.originalas === k.pavadinimas ? "" : esc(k.originalas) + ", "}${esc(k.metai)} · ${esc(k.zanras)}</div><p class="short">${esc(k.trumpai)}</p></div>
+            <div>${zyme(zymes[raktas(r, k)])}<h3>${esc(k.pavadinimas)}</h3><div class="orig">${k.originalas === k.pavadinimas ? "" : esc(k.originalas) + ", "}${esc(k.metai)} · ${esc(k.zanras)}</div><p class="short">${esc(k.trumpai)}</p>${k.skaityti ? `<div class="online">Skaitoma internete</div>` : ""}</div>
           </button>`).join("")}</div>
       </section>`;
     }).join("");
-    list.innerHTML = html || `<div class="empty">${busena === "visos" || term || salisSel.value || epochaSel.value || zanrasSel.value
+    list.innerHTML = html || `<div class="empty">${busena === "visos" || busena === "internete" || term || salisSel.value || epochaSel.value || zanrasSel.value
       ? "Nieko nerasta. Pabandykite kitą paieškos žodį ar filtrą."
       : "Čia dar nieko nėra. Atidarykite knygos aprašymą ir pažymėkite ją."}</div>`;
     const perskaityta = Object.values(zymes).filter(z => z === "skaityta").length;
@@ -320,7 +353,7 @@
     epochaSel.value = p.get("epocha") || "";
     zanrasSel.value = p.get("zanras") || "";
     rikiuoti.value = p.get("rikiuoti") === "abc" ? "abc" : "metai";
-    busena = BUSENOS[p.get("busena")] ? p.get("busena") : "visos";
+    busena = BUSENOS[p.get("busena")] || p.get("busena") === "internete" ? p.get("busena") : "visos";
     pazymetiBusena();
     return p.get("knyga");
   }
@@ -340,6 +373,7 @@
         <div class="by">${esc(r.vardas)}</div>
         <div class="meta">${k.originalas === k.pavadinimas ? "" : `Originalas: <i>${esc(k.originalas)}</i> · `}${esc(k.metai)} · ${esc(k.zanras)}</div>
         <p class="desc">${esc(k.aprasymas)}</p>
+        ${k.skaityti ? `<a class="read" href="${esc(k.skaityti.url)}" target="_blank" rel="noopener">Skaityti internete <span>· ${esc(k.skaityti.saltinis)} ↗</span></a>` : ""}
         <div class="actions">${Object.entries(BUSENOS).map(([b, t]) =>
           `<button class="chip" aria-pressed="${z === b}" data-b="${b}">${t}</button>`).join("")}</div>
       </div>`;

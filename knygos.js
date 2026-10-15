@@ -4,6 +4,7 @@
 // spalva – viršelio spalva (bet kokia CSS spalva).
 // zanras – "Romanas", "Poezija", "Drama" arba "Trumpoji proza" (pagal jį veikia žanro filtras).
 // metai – epochos filtras ima pirmą šiame lauke esantį skaičių.
+// skaityti – (nebūtina) nuoroda į laisvai prieinamą tekstą; dėti tik kūriniams, kurių autorių teisės pasibaigusios.
 const RASYTOJAI = [
   {
     vardas: "Homeras",
@@ -734,6 +735,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Metai",
+        skaityti: { url: "https://lt.wikisource.org/wiki/Metai", saltinis: "Vikišaltiniai" },
         originalas: "Metai",
         metai: "apie 1765–1775, išleista 1818",
         zanras: "Poezija",
@@ -751,6 +753,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Anykščių šilelis",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0020/", saltinis: "IntraText" },
         originalas: "Anykščių šilelis",
         metai: "1858–1859",
         zanras: "Poezija",
@@ -785,6 +788,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Pavasario balsai",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0032/", saltinis: "IntraText" },
         originalas: "Pavasario balsai",
         metai: "1895",
         zanras: "Poezija",
@@ -802,6 +806,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Dėdės ir dėdienės",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0050/", saltinis: "IntraText" },
         originalas: "Dėdės ir dėdienės",
         metai: "1920–1921",
         zanras: "Trumpoji proza",
@@ -819,6 +824,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Sename dvare",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0044/", saltinis: "IntraText" },
         originalas: "Sename dvare",
         metai: "1922",
         zanras: "Trumpoji proza",
@@ -836,6 +842,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "Liūdna pasaka",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0021/", saltinis: "IntraText" },
         originalas: "Liūdna pasaka",
         metai: "1907",
         zanras: "Trumpoji proza",
@@ -1225,6 +1232,7 @@ const RASYTOJAI = [
     knygos: [
       {
         pavadinimas: "100 pavasarių",
+        skaityti: { url: "https://www.intratext.com/IXT/LIT0022/", saltinis: "IntraText" },
         originalas: "100 pavasarių",
         metai: "1923",
         zanras: "Poezija",
