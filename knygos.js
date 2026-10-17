@@ -1780,5 +1780,92 @@ const RASYTOJAI = [
         aprasymas: "Kad išvengtų darbų kalėjime, Rendlas Makmerfis apsimeta bepročiu ir patenka į skyrių, kurį geležine tvarka valdo sesuo Rečed. Jo juokas ir nepaklusnumas pažadina įbaugintus ligonius. Istoriją pasakoja nebyliu apsimetantis indėnas Vadas Bromdenas."
       }
     ]
+  },
+
+  // ── Naujos šalys: Švedija, Estija, Japonija, Argentina ──
+  {
+    vardas: "Selma Lagerlöf",
+    gyvenimas: "1858–1940",
+    salis: "Švedija",
+    apie: "Švedų rašytoja, 1909 m. pirmoji moteris, gavusi Nobelio literatūros premiją.",
+    knygos: [
+      {
+        pavadinimas: "Stebuklingos Nilso kelionės",
+        originalas: "Nils Holgerssons underbara resa genom Sverige",
+        metai: "1906–1907",
+        zanras: "Romanas",
+        spalva: "#4a7a8a",
+        trumpai: "Mažytis berniukas ant žąsino nugaros apskrenda visą Švediją.",
+        aprasymas: "Išdykęs keturiolikmetis Nilsas už bausmę paverčiamas nykštuku ir kartu su laukinių žąsų pulku leidžiasi per visą Švediją. Kelionėje jis mokosi suprasti gyvūnus, gamtą ir savo šalį, o kartu tampa geresniu žmogumi. Knyga buvo parašyta kaip geografijos skaitiniai mokykloms, bet tapo viena mylimiausių vaikų knygų pasaulyje."
+      }
+    ]
+  },
+  {
+    vardas: "Anton Hansen Tammsaare",
+    gyvenimas: "1878–1940",
+    salis: "Estija",
+    apie: "Estų prozininkas, svarbiausias estų realistinio romano kūrėjas.",
+    knygos: [
+      {
+        pavadinimas: "Tiesa ir teisingumas",
+        originalas: "Tõde ja õigus",
+        metai: "1926–1933",
+        zanras: "Romanas",
+        spalva: "#5a6a3a",
+        trumpai: "Penkių dalių epopėja apie estų kaimą ir miestą XIX–XX a. sandūroje.",
+        aprasymas: "Pirmoje dalyje jaunas ūkininkas Andresas atsikrausto į pelkėtą Vargamės ūkį ir visą gyvenimą kovoja su žeme ir su kaimynu Pearu. Vėlesnėse dalyse sekamas jo sūnus Indrekas, išėjęs mokytis į miestą ir patekęs į 1905 m. revoliucijos sūkurį. Epopėja apie darbą, žemę, tikėjimą ir teisingumo paieškas laikoma estų literatūros viršūne."
+      }
+    ]
+  },
+  {
+    vardas: "Riūnosuke Akutagava",
+    gyvenimas: "1892–1927",
+    salis: "Japonija",
+    apie: "Japonų novelistas, japonų trumposios prozos klasikas; jo vardu pavadinta svarbiausia Japonijos literatūros premija.",
+    knygos: [
+      {
+        pavadinimas: "Rašiomono vartai",
+        originalas: "羅生門",
+        metai: "1915–1927",
+        zanras: "Trumpoji proza",
+        spalva: "#6a2a2a",
+        trumpai: "Novelės apie žmogaus širdies tamsą senovės ir modernioje Japonijoje.",
+        aprasymas: "Titulinėje novelėje atleistas tarnas, slėpdamasis nuo lietaus po apgriuvusiais Kioto vartais, sutinka senę, plėšiančią plaukus nuo mirusiųjų, ir pats turi nuspręsti, kaip išgyventi. Kitose novelėse senovės legendos perpasakojamos moderniai ir ironiškai. Pagal dvi Akutagavos noveles Akira Kurosawa sukūrė garsųjį filmą „Rašomonas“."
+      }
+    ]
+  },
+  {
+    vardas: "Jorge Luis Borges",
+    gyvenimas: "1899–1986",
+    salis: "Argentina",
+    apie: "Argentiniečių rašytojas, poetas ir bibliotekininkas, filosofinių novelių meistras.",
+    knygos: [
+      {
+        pavadinimas: "Fikcijos",
+        originalas: "Ficciones",
+        metai: "1944",
+        zanras: "Trumpoji proza",
+        spalva: "#7a6a3a",
+        trumpai: "Trumpos novelės-labirintai apie begalybę, laiką ir knygas.",
+        aprasymas: "Rinkinyje – novelės apie biblioteką, kurioje yra visos įmanomos knygos, apie išgalvotą pasaulį, pamažu išstumiantį tikrąjį, apie sodą, kurio takai išsišakoja į skirtingas ateitis, ir apie žmogų, iš naujo parašiusį „Don Kichotą“. Kiekvienas tekstas trumpas, bet kupinas filosofinių galvosūkių. Knyga padarė didžiulę įtaką XX a. literatūrai."
+      }
+    ]
+  },
+  {
+    vardas: "Julio Cortázar",
+    gyvenimas: "1914–1984",
+    salis: "Argentina",
+    apie: "Argentiniečių rašytojas, didžiąją gyvenimo dalį praleidęs Paryžiuje, eksperimentinės prozos kūrėjas.",
+    knygos: [
+      {
+        pavadinimas: "Žaidžiame klases",
+        originalas: "Rayuela",
+        metai: "1963",
+        zanras: "Romanas",
+        spalva: "#3a3a6a",
+        trumpai: "Romanas, kurį galima skaityti įvairia tvarka – nuo pradžios iki galo arba šokinėjant per skyrius.",
+        aprasymas: "Argentinietis Horacijus Oliveira Paryžiuje leidžia laiką su menininkų draugija ir mylimąja Mage, ieškodamas prasmės, kurios negali įvardyti, o vėliau grįžta į Buenos Aires. Autorius siūlo romaną skaityti dvejopai: įprasta tvarka arba pagal nurodytą skyrių seką. Knyga – maištas prieš sustabarėjusias visuomenės normas ir pačią romano formą."
+      }
+    ]
   }
 ];

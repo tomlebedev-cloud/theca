@@ -141,3 +141,12 @@ a.card { text-decoration: none; }
   .book { flex-direction: column; gap: 20px; padding-top: 24px; }
   .book .cover { flex-basis: auto; width: 130px; height: 188px; font-size: 19px; }
 }
+
+/* ── Telefone filtrai suskleidžiami ── */
+.filtrai-btn { display: none; }
+@media (max-width: 640px) {
+  .filtrai-btn { display: inline-block; }
+  .tools:not(.atidaryta) .select,
+  .tools:not(.atidaryta) + .chips { display: none; }
+  .tools .select { flex: 1 1 45%; }
+}

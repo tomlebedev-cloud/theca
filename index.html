@@ -18,7 +18,7 @@
 <meta name="theme-color" content="#8a4b2a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='3' width='24' height='26' rx='3' fill='%238a4b2a'/%3E%3Crect x='4' y='3' width='4' height='26' fill='%23000' opacity='.2'/%3E%3Ctext x='18' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23fff8ec' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E"><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="stilius.css?v=2026-10-15">
+<link rel="stylesheet" href="stilius.css?v=2026-10-17">
 </head>
 <body>
 <header>
@@ -28,6 +28,7 @@
     <p class="lead">Lietuvių ir pasaulio klasikai bei jų knygos, kurias galima skaityti lietuviškai. Paspauskite knygą – atsivers jos puslapis su išsamiu aprašymu, kur galėsite pažymėti, ką perskaitėte ar norite perskaityti.</p>
     <div class="tools">
       <input id="q" class="search" type="search" placeholder="Ieškoti knygos ar autoriaus…" aria-label="Paieška">
+      <button id="filtraiBtn" class="chip filtrai-btn" aria-expanded="false">Filtrai</button>
       <select id="salis" class="select" aria-label="Šalis"></select>
       <select id="epocha" class="select" aria-label="Epocha"></select>
       <select id="zanras" class="select" aria-label="Žanras"></select>
@@ -49,8 +50,8 @@
 
 <button id="virsun" class="top" aria-label="Į viršų" hidden>↑</button>
 
-<script src="knygos.js?v=2026-10-15"></script>
-<script src="bendra.js?v=2026-10-15"></script>
+<script src="knygos.js?v=2026-10-17"></script>
+<script src="bendra.js?v=2026-10-17"></script>
 <script>
   const list = document.getElementById("list");
   const q = document.getElementById("q");
@@ -99,6 +100,12 @@
   const valyti = document.getElementById("valyti");
   const virsun = document.getElementById("virsun");
   rikiuoti.addEventListener("change", () => render());
+  // Telefone filtrai suskleisti po mygtuku „Filtrai“ (kompiuteryje visada matomi – žr. stilius.css)
+  const filtraiBtn = document.getElementById("filtraiBtn");
+  filtraiBtn.addEventListener("click", () => {
+    const atv = document.querySelector(".tools").classList.toggle("atidaryta");
+    filtraiBtn.setAttribute("aria-expanded", atv);
+  });
   const pazymetiBusena = () => busenos.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.b === busena));
   valyti.addEventListener("click", () => {
     q.value = salisSel.value = epochaSel.value = zanrasSel.value = "";
@@ -129,6 +136,8 @@
     const term = norm(q.value.trim());
     let knyguSk = 0, autoriuSk = 0;
     valyti.hidden = !(q.value || salisSel.value || epochaSel.value || zanrasSel.value || busena !== "visos");
+    const aktyvus = [salisSel.value, epochaSel.value, zanrasSel.value, busena !== "visos"].filter(Boolean).length;
+    filtraiBtn.textContent = aktyvus ? `Filtrai (${aktyvus})` : "Filtrai";
     // RASYTOJAI jau surikiuoti chronologiškai; abėcėlei rikiuojami tik indeksai (pagal pavardę)
     const tvarka = RASYTOJAI.map((_, ri) => ri);
     if (rikiuoti.value === "abc")
